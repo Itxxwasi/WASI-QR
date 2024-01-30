@@ -1,6 +1,6 @@
 //_____qr code session__
 //___c DiegosonTech__
-//c Aztec-MD Chat Bot___
+//c HASI-MD Chat Bot___
 
 const express = require("express");
 const app = express();
@@ -23,13 +23,14 @@ if (fs.existsSync('./auth_info_baileys')) {
 
 function genMESSAGE(user) {
   return `┌───⭓『
-❒ *[AMAZING YOU CHOOSE AZTEC]*
-❒ _NOW ITS TIME TO RUN IT_
+❒ *HASI-MD*
+❒ _NOW DEPLOY IT_
 └────────────⭓
 ┌───⭓
 ❒  • Chat with owner •
-❒ *GitHub:* __https://github.com/Vorterx_
-❒ *Author:* _wa.me/27686881509_
+❒ *GitHub:* __https://github.com/chhaseeb47_
+❒ *Author:* _wa.me/923462054847_
+❒ *YT:* _https://youtube.com/@mhmodsofc_
 └────────────⭓
 `;
 }
