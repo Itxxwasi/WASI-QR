@@ -23,14 +23,14 @@ if (fs.existsSync('./auth_info_baileys')) {
 
 function genMESSAGE(user) {
   return `┌───⭓『
-❒ *HASI-MD*
+❒ *WASI-MD*
 ❒ _NOW DEPLOY IT_
 └────────────⭓
 ┌───⭓
 ❒  • Chat with owner •
-❒ *GitHub:* __https://github.com/chhaseeb47_
-❒ *Author:* _wa.me/923462054847_
-❒ *YT:* _https://youtube.com/@mhmodsofc_
+❒ *GitHub:* __https://github.com/WASI-MD_
+❒ *Author:* _wa.me/923192173398_
+❒ *YT:* _https://youtube.com/@wasitech10_
 └────────────⭓
 `;
 }
