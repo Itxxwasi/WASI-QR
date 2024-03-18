@@ -23,9 +23,11 @@ RENDER PROCESS:
     4: Now Choose this forked git repo from list.
     5: And JUST CLICK "Connect". 
 ```
+## Deployment Ready Outputs
+---
 1. ***See Sample [`HEROKU OUTPUT`](https://wasiwas-95abf035a922.herokuapp.com).***
 2.  ***See Sample [`RENDER OUTPUT`](https://wasi-qr.onrender.com).***
-
+---
 
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/PNDZJyT/qr-img-1.png" alt="qr-img-1" border="0"></a>
