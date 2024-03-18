@@ -23,7 +23,8 @@ RENDER PROCESS:
     4: Now Choose this forked git repo from list.
     5: And JUST CLICK "Connect". 
 ```
-
+1. ***See Sample [`HEROKU OUTPUT`](https://wasiwas-95abf035a922.herokuapp.com).***
+2.  ***See Sample [`RENDER OUTPUT`](https://wasi-qr.onrender.com).***
 
 
 
