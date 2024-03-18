@@ -1,0 +1,22 @@
+{
+    "name": "wasi-qr",
+    "description": "This is Wasi MD QR Scanner",
+    "logo": "https://imgbb.com/",
+    "repository": "https://github.com/Itxxwasi/WASI-QR",
+    "keywords": ["whatsappbot", "WasiQR", "wasi QR bot", "Wasi-Qr", "WasiMdWhatsappBot", "WasiWaBot","WasiMD","Wasi Md Whatsapp Bot","multi device"],
+    "success_url": "/", 
+    "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
+    "env": {      
+      "PORT": {
+        "description": "Port for web app.4000,5000,3000... any!",
+        "value": "5000",
+        "required": true 
+      },
+      "MESSAGE": {
+        "description": "set session id conformation message",
+        "value": "",
+        "required": false 
+      }
+    }   
+
+}
