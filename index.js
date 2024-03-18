@@ -2,27 +2,22 @@
 //___c DiegosonTech__
 //c HASI-MD Chat Bot___
 
+
 const express = require("express");
 const app = express();
-const { toBuffer } = require("qrcode");
+
+
+
+
+
 const pino = require("pino");
+let { toBuffer } = require("qrcode");
+const path = require('path');
 const fs = require("fs-extra");
-const crypto = require("crypto");
-const { makeWASocket, useMultiFileAuthState, Browsers, delay, makeInMemoryStore } = require("@whiskeysockets/baileys");
-const PORT = process.env.PORT || 3000;
-
-const makeid = (length = 10) => {
-  return crypto.randomBytes(Math.ceil(length / 2))
-    .toString('hex')
-    .slice(0, length);
-}
-
-if (fs.existsSync('./auth_info_baileys')) {
-  fs.emptyDirSync(__dirname + '/auth_info_baileys');
-}
-
-function genMESSAGE(user) {
-  return `┌───⭓『
+const { Boom } = require("@hapi/boom");
+const PORT = process.env.PORT ||  5000
+const MESSAGE = process.env.MESSAGE ||  `
+┌───⭓『
 ❒ *WASI-MD*
 ❒ _NOW DEPLOY IT_
 └────────────⭓
@@ -32,76 +27,120 @@ function genMESSAGE(user) {
 ❒ *Author:* _wa.me/923192173398_
 ❒ *YT:* _https://youtube.com/@wasitech10_
 └────────────⭓
-`;
-}
+`
 
-app.use("/", (req, res) => {
+
+
+
+
+
+
+
+
+
+
+if (fs.existsSync('./auth_info_baileys')) {
+    fs.emptyDirSync(__dirname + '/auth_info_baileys');
+  };
+  
+  app.use("/", async(req, res) => {
+
+  const { default: WasiWASocket, useMultiFileAuthState, Browsers, delay,DisconnectReason, makeInMemoryStore, } = require("@whiskeysockets/baileys");
   const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
-  async function VORTERX() {
+  async function WASI() {
+    const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys')
     try {
-      let tempId = makeid();
-      let name = `/auth_info_baileys/`
-      const { state, saveCreds } = await useMultiFileAuthState(__dirname + name)
-      let session = makeWASocket({
+      let Smd =WasiWASocket({ 
         printQRInTerminal: false,
-        defaultQueryTimeoutMs: undefined,
-        logger: pino({ level: "silent" }),
+        logger: pino({ level: "silent" }), 
         browser: [Browsers.Chrome, 'Windows 10', 'Chrome/89.0.4389.82'],
-        auth: state
-      });
+        auth: state 
+        });
 
-      session.ev.on("connection.update", async (s) => {
+
+      Smd.ev.on("connection.update", async (s) => {
         const { connection, lastDisconnect, qr } = s;
+        if (qr) { res.end(await toBuffer(qr)); }
 
-        switch (connection) {
-          case "open":
-            if (qr) {
-              res.end(await toBuffer(qr));
-            } else {
-              await delay(500 * 10);
-              let user = session.user.id;
 
-              try {
-                let data = fs.readFileSync(__dirname + name + 'creds.json');
-                let SCAN = Buffer.from(data).toString('base64');
-                await session.sendMessage(user, { text: SCAN });
-                await delay(500);
+        if (connection == "open"){
+          await delay(3000);
+          let user = Smd.user.id;
 
-                let session_id1 = await session.sendMessage(user, { text: SCAN });
-              } catch (e) {
-                console.log(e)
-              }
 
-              let cc = genMESSAGE(user);
-              let session_id = await session.sendMessage(user, { document: { url: __dirname + name + 'creds.json' }, fileName: "creds.json", mimetype: "application/json" });
+//===========================================================================================
+//===============================  SESSION ID    ===========================================
+//===========================================================================================
 
-              await session.sendMessage(user, { text: cc }, { quoted: session_id });
-         
-              process.send("reset");
-            }
-            break;
+          let CREDS = fs.readFileSync(__dirname + '/auth_info_baileys/creds.json')
+          var Scan_Id = Buffer.from(CREDS).toString('base64')
+         // res.json({status:true,Scan_Id })
+          console.log(`
+====================  SESSION ID  ==========================                   
+SESSION-ID ==> ${Scan_Id}
+-------------------   SESSION CLOSED   -----------------------
+`)
 
-          case "close":
-            if (lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-              VORTERX();
-            }
-            break;
 
-          default:
-            console.log("Unknown connection state");
-            break;
+          let msgsss = await Smd.sendMessage(user, { text:  Scan_Id });
+          await Smd.sendMessage(user, { text: MESSAGE } , { quoted : msgsss });
+          await delay(1000);
+          try{ await fs.emptyDirSync(__dirname+'/auth_info_baileys'); }catch(e){}
+
+
         }
+
+        Smd.ev.on('creds.update', saveCreds)
+
+        if (connection === "close") {            
+            let reason = new Boom(lastDisconnect?.error)?.output.statusCode
+            // console.log("Reason : ",DisconnectReason[reason])
+            if (reason === DisconnectReason.connectionClosed) {
+              console.log("Connection closed!")
+             // WASI().catch(err => console.log(err));
+            } else if (reason === DisconnectReason.connectionLost) {
+                console.log("Connection Lost from Server!")
+            //  WASI().catch(err => console.log(err));
+            } else if (reason === DisconnectReason.restartRequired) {
+                console.log("Restart Required, Restarting...")
+              WASI().catch(err => console.log(err));
+            } else if (reason === DisconnectReason.timedOut) {
+                console.log("Connection TimedOut!")
+             // WASI().catch(err => console.log(err));
+            }  else {
+                console.log('Connection closed with bot. Please run again.');
+                console.log(reason)
+              //process.exit(0)
+            }
+          }
+
+
+
       });
     } catch (err) {
-      console.log(
-        err + "Unknown Error Occurred. Please report to Owner and Stay tuned"
-      );
+        console.log(err);
+       await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
     }
   }
 
-  VORTERX?.().catch(error => {
-    console.error("VORTERX:", error);
-  });
+
+
+
+
+
+
+
+  WASI().catch(async(err) => {
+    console.log(err)
+    await fs.emptyDirSync(__dirname+'/auth_info_baileys'); 
+
+
+    //// MADE BY ITXWASI
+
 });
 
-app.listen(PORT, () => console.log("App listened on port", PORT));                
+
+  })
+
+
+app.listen(PORT, () => console.log(`App listened on port http://localhost:${PORT}`));
