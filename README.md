@@ -2,18 +2,8 @@
 ---
 1.  ***Click [`FORK`](https://github.com/Itxxwasi/WASI-QR/fork) and `Star ⭐ Repository` if you get help from repo.***
 2.  ***Deploy on [`HEROKU`](https://dashboard.heroku.com/new?template=https://github.com/Itxxwasi/WASI-QR).***
-3.  ***Deploy on [`VERCEL`](https://vercel.com/login).***
-4.  ***Deploy on [`REPLIT`](https://replit.com/github.com/Itxxwasi/WASI-QR).***
-5. ***Deploy on [`RENDER`](https://dashboard.render.com/login).***
-
-```
-VERCEL PROCESS:
-    1: Click "NEW".
-    2: Select "New Project".
-    3: Click "Searc and import from your forked Git repository".
-    4: Enter project name, env variables.
-    5: And JUST CLICK "Deploy". 
-```
+3.  ***Deploy on [`REPLIT`](https://replit.com/github.com/Itxxwasi/WASI-QR).***
+4. ***Deploy on [`RENDER`](https://dashboard.render.com/login).***
 
 ```
 RENDER PROCESS:
