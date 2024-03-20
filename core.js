@@ -1,3 +1,5 @@
+//QR BY WASI
+
 const cluster = require('cluster');
 const path = require('path');
 const fs = require('fs');
