@@ -1,6 +1,5 @@
-//_____qr code session__
-//___c DiegosonTech__
-//c HASI-MD Chat Bot___
+// get qr  code of any bot using this ....................
+//coded  by wasi
 
 
 const express = require("express");
